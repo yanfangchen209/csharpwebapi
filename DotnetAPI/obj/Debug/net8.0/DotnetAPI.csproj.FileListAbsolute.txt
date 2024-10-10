@@ -75,3 +75,4 @@ C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.0\DotnetAPI.pdb
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.0\DotnetAPI.genruntimeconfig.cache
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.0\ref\DotnetAPI.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\AutoMapper.dll
