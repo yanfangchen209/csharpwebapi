@@ -1,5 +1,6 @@
 
 using DotnetAPI.Data;
+using DotnetAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetAPI.Controllers;
@@ -18,7 +19,7 @@ public class UserController : ControllerBase
 
     }
 
-
+//test conncetion to database
     [HttpGet("testconnection")]
     public DateTime GetCurrentTime()
     {
@@ -35,18 +36,88 @@ public class UserController : ControllerBase
 
     //Maps the method to respond to HTTP GET requests at the specified route.
     //handles GET requests to the /user/GetUsers route.
-    [HttpGet("GetUsers/{testValue}")]
+    [HttpGet("GetUsers/{userId}")]
     //public IActionResult Test()
-    public string[] GetUsers(String testValue)
+    public User GetUsers(int userId)
     {
-        string[] responseArray = new string[] {
-            "test1", 
-            "test2",
-            testValue
-        };
-       
 
-        return responseArray;
+        string sqlSelectSingleUser = @"
+            SELECT
+                UserId,
+                FirstName,
+                LastName,
+                Email,
+                Gender,
+                Active
+            FROM DotnetAPIschema.users where UserId = " + userId.ToString();
+        return _dapper.LoadDataSingle<User>(sqlSelectSingleUser);
     }
+
+
+    [HttpGet("GetUsers")]
+    public IEnumerable<User> GetAllUsers()
+    {
+
+        string sqlSelectAllUsers = @"
+            SELECT
+                UserId,
+                FirstName,
+                LastName,
+                Email,
+                Gender,
+                Active
+            FROM DotnetAPIschema.users";
+        return _dapper.LoadData<User>(sqlSelectAllUsers);
+    }
+    [HttpPut("EditUser")]
+    public IActionResult EditUser(User user){
+                string editUsersql = @"
+                    UPDATE DotnetAPISchema.Users
+                        SET [FirstName] = '" + user.FirstName + 
+                            "', [LastName] = '" + user.LastName +
+                            "', [Email] = '" + user.Email + 
+                            "', [Gender] = '" + user.Gender + 
+                            "', [Active] = '" + user.Active + 
+                        "' WHERE UserId = " + user.UserId;
+
+                Console.WriteLine(editUsersql);
+                if(_dapper.ExecuteSql(editUsersql)){
+                    //Ok() is inherited from controllerbase class
+                    return Ok();
+                }
+                throw new Exception("Edit user failed");
+
+    }
+
+    [HttpPost("AddUser")]
+    public IActionResult AddUser(User user)
+    {
+        string sql = @"INSERT INTO DotnetAPISchema.Users(
+                [FirstName],
+                [LastName],
+                [Email],
+                [Gender],
+                [Active]
+            ) VALUES (" +
+                "'" + user.FirstName + 
+                "', '" + user.LastName +
+                "', '" + user.Email + 
+                "', '" + user.Gender + 
+                "', '" + user.Active + 
+            "')";
+        
+        Console.WriteLine(sql);
+
+        if (_dapper.ExecuteSql(sql))
+        {
+            return Ok();
+        } 
+
+        throw new Exception("Failed to Add User");
+    }
+
+
+
+
 }
 
