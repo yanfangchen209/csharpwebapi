@@ -1,5 +1,6 @@
 
 using DotnetAPI.Data;
+using DotnetAPI.Dtos;
 using DotnetAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -69,28 +70,78 @@ public class UserController : ControllerBase
             FROM DotnetAPIschema.users";
         return _dapper.LoadData<User>(sqlSelectAllUsers);
     }
+    /*
     [HttpPut("EditUser")]
     public IActionResult EditUser(User user){
-                string editUsersql = @"
-                    UPDATE DotnetAPISchema.Users
-                        SET [FirstName] = '" + user.FirstName + 
-                            "', [LastName] = '" + user.LastName +
-                            "', [Email] = '" + user.Email + 
-                            "', [Gender] = '" + user.Gender + 
-                            "', [Active] = '" + user.Active + 
-                        "' WHERE UserId = " + user.UserId;
+        string editUsersql= @"
+        UPDATE DotnetAPISchema.Users
+            SET [FirstName] = '" + user.FirstName.Replace("'", "''") + 
+                "', [LastName] = '" + user.LastName.Replace("'", "''") +
+                "', [Email] = '" + user.Email.Replace("'", "''") + 
+                "', [Gender] = '" + user.Gender.Replace("'", "''") + 
+                "', [Active] = '" + user.Active + 
+            "' WHERE UserId = " + user.UserId;
 
-                Console.WriteLine(editUsersql);
-                if(_dapper.ExecuteSql(editUsersql)){
-                    //Ok() is inherited from controllerbase class
-                    return Ok();
-                }
-                throw new Exception("Edit user failed");
+        Console.WriteLine(editUsersql);
+        if(_dapper.ExecuteSql(editUsersql)){
+            //Ok() is inherited from controllerbase class
+            return Ok();
+        }
+        throw new Exception("Edit user failed");
 
     }
+    */
+
+ // Use parameterized SQL query to prevent SQL injection
+/// <summary>
+/// This approach simplifies the code and avoids having to manually handle single quotes or other special characters in user input
+/// </summary>
+/// <param name="user"></param>
+/// <returns></returns>
+    [HttpPut("EditUser")]
+    public IActionResult EditUser(User user)
+    {
+        string editUserSql = @"
+            UPDATE DotnetAPISchema.Users
+            SET FirstName = @FirstName,
+                LastName = @LastName,
+                Email = @Email,
+                Gender = @Gender,
+                Active = @Active
+            WHERE UserId = @UserId";
+
+        var parameters = new 
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Gender = user.Gender,
+            Active = user.Active,
+            UserId = user.UserId
+        };
+
+        try
+        {
+            bool rowsAffected = _dapper.ExecuteSqlWithParameters(editUserSql, parameters);
+            if (rowsAffected)
+            {
+                return Ok(); // User update successful
+            }
+            else
+            {
+                return NotFound("User not found"); // UserId does not exist
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error updating user: " + ex.Message);
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
 
     [HttpPost("AddUser")]
-    public IActionResult AddUser(User user)
+    public IActionResult AddUser(UserToAddDto user)
     {
         string sql = @"INSERT INTO DotnetAPISchema.Users(
                 [FirstName],
@@ -116,8 +167,23 @@ public class UserController : ControllerBase
         throw new Exception("Failed to Add User");
     }
 
+    [HttpDelete("DeleteUser/{userId}")]
+    public IActionResult DeleteUser(int userId)
+    {
+        string sql = @"
+            DELETE FROM DotnetAPISchema.Users 
+                WHERE UserId = " + userId.ToString();
+        
+        Console.WriteLine(sql);
 
+        if (_dapper.ExecuteSql(sql))
+        {
+            return Ok();
+        } 
 
+        throw new Exception("Failed to Delete User");
+    }
+    
 
 }
 

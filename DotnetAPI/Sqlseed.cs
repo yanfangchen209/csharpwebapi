@@ -39,7 +39,7 @@
             
 //             // Read user data from JSON file
 //             string usersJson = System.IO.File.ReadAllText("Users.json");
-//             IEnumerable<Users>? users = JsonConvert.DeserializeObject<IEnumerable<Users>>(usersJson);
+//             IEnumerable<User>? users = JsonConvert.DeserializeObject<IEnumerable<User>>(usersJson);
 
 //             // If users data is available, insert it into the database
 //             if (users != null)
@@ -50,7 +50,7 @@
 //                                 + "INSERT INTO DotnetAPISchema.Users (UserId, FirstName, LastName, Email, Gender, Active) VALUES";
                     
 //                     // Iterate over each user and construct the SQL insert statement
-//                     foreach (Users singleUser in users)
+//                     foreach (User singleUser in users)
 //                     {
 //                         // Prepare SQL values while handling potential SQL injection issues by by escaping single quotes in string data.
 //                         string sqlToAdd = "(" + singleUser.UserId
@@ -150,5 +150,6 @@
 //             // Indicate that the SQL seeding process is complete
 //             Console.WriteLine("SQL Seed Completed Successfully");
 //         }
+        
 //     }
 // }

@@ -44,6 +44,11 @@ namespace DotnetAPI.Data {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             return dbConnection.Execute(sql) > 0;
         }
+
+        public bool ExecuteSqlWithParameters(string sql, object parameters) {
+            IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            return dbConnection.Execute(sql, parameters) > 0;
+        }
         
         //return numbers of lines affacted(add/update/delete operation to db)
         public int ExecuteSqlWithRowCount(string sql) {
