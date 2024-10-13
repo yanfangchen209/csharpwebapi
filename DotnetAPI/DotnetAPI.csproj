@@ -12,6 +12,9 @@
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
     <PackageReference Include="microsoft.data.sqlclient" Version="5.2.2" />
+    <PackageReference Include="microsoft.entityframeworkcore" Version="8.0.10" />
+    <PackageReference Include="microsoft.entityframeworkcore.relational" Version="8.0.10" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

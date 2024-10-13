@@ -76,3 +76,13 @@ C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.0\DotnetAPI.genruntimeconfig.cache
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\DotnetAPI\obj\Debug\net8.0\ref\DotnetAPI.dll
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\AutoMapper.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Options.dll

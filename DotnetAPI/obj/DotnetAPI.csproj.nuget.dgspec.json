@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj": {}
+    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj": {}
   },
   "projects": {
-    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj": {
+    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj",
+        "projectUniqueName": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj",
         "projectName": "DotnetAPI",
-        "projectPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj",
+        "projectPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj",
         "packagesPath": "C:\\Users\\julie\\.nuget\\packages\\",
-        "outputPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\obj\\",
+        "outputPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\julie\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -74,6 +74,18 @@
             "microsoft.data.sqlclient": {
               "target": "Package",
               "version": "[5.2.2, )"
+            },
+            "microsoft.entityframeworkcore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "microsoft.entityframeworkcore.relational": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "microsoft.entityframeworkcore.sqlserver": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             }
           },
           "imports": [
