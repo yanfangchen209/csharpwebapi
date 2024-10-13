@@ -28,32 +28,39 @@ namespace DotnetAPI.Data {
 
         }
 
-
-
         public IEnumerable<T> LoadData<T>(string sql) {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             return dbConnection.Query<T>(sql);
         }
+
 
         public T LoadDataSingle<T>(string sql) {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             return dbConnection.QuerySingle<T>(sql);
         }
 
+
         public bool ExecuteSql(string sql) {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             return dbConnection.Execute(sql) > 0;
         }
 
-        public bool ExecuteSqlWithParameters(string sql, object parameters) {
-            IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            return dbConnection.Execute(sql, parameters) > 0;
-        }
-        
+
         //return numbers of lines affacted(add/update/delete operation to db)
         public int ExecuteSqlWithRowCount(string sql) {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             return dbConnection.Execute(sql);
+        }
+
+
+        public T LoadDataSingleWithParameter<T>(string sql, object parameter) {
+            IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            return dbConnection.QuerySingle<T>(sql, parameter);
+        }
+
+        public bool ExecuteSqlWithParameter(string sql, object parameter) {
+            IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            return dbConnection.Execute(sql, parameter) > 0;
         }
 
 

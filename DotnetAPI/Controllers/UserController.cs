@@ -63,7 +63,25 @@ public class UserController : ControllerBase
         return _dapper.LoadDataSingle<UserSalary>(sql);
     }
 
+    [HttpGet("GetSingleUserJobInfo/{userId}")]
+    public UserJobInfo GetSingleUserJobInfo(int userId)
+    {
+        string sql = @"
+            SELECT UserJobInfo.UserId,
+                UserJobInfo.JobTitle,
+                UserJobInfo.Department
+            From DotnetAPISchema.UserJobInfo
+            WHERE UserId = @UserId";
 
+        var parameters = new 
+        {
+            UserId = userId
+
+        };
+
+        return _dapper.LoadDataSingleWithParameter<UserJobInfo>(sql, parameters);
+
+    }
 
 
     [HttpGet("GetAllUsers")]
@@ -93,6 +111,19 @@ public class UserController : ControllerBase
                 Salary
             FROM DotnetAPIschema.UserSalary";
         return _dapper.LoadData<UserSalary>(sql);
+    }
+
+    [HttpGet("GetAllUserJobInfo")]
+    public IEnumerable<UserJobInfo> GetAllUserJobInfo()
+    {
+
+        string sql = @"
+            SELECT UserJobInfo.UserId,
+                UserJobInfo.JobTitle,
+                UserJobInfo.Department
+            From DotnetAPISchema.UserJobInfo";
+
+        return _dapper.LoadData<UserJobInfo>(sql);
     }
 
 
@@ -149,7 +180,7 @@ public class UserController : ControllerBase
 
         try
         {
-            bool rowsAffected = _dapper.ExecuteSqlWithParameters(editUserSql, parameters);
+            bool rowsAffected = _dapper.ExecuteSqlWithParameter(editUserSql, parameters);
             if (rowsAffected)
             {
                 return Ok(); // User update successful
@@ -181,15 +212,40 @@ public class UserController : ControllerBase
 
         };
 
-        if(_dapper.ExecuteSqlWithParameters(sql, parameters)){
+        if(_dapper.ExecuteSqlWithParameter(sql, parameters)){
             
             return Ok(userSalary);
         }
-        throw new Exception("Edit user failed");
+        throw new Exception("Edit usersalary failed");
 
     }
 
+    [HttpPut("EditUserJobInfo")]
+    public IActionResult EditUserJobInfo(UserJobInfo userJobInfo){
 
+        string sql = @"
+            UPDATE DotnetAPISchema.UserJobInfo
+            SET JobTitle = @JobTitle,
+                Department = @Department
+            WHERE UserId = @UserId";
+
+        var parameters = new 
+        {
+            UserId = userJobInfo.UserId,
+            JobTitle = userJobInfo.JobTitle,
+            Department = userJobInfo.Department
+
+        };
+
+        if(_dapper.ExecuteSqlWithParameter(sql, parameters)){
+            
+            return Ok(userJobInfo);
+        }
+        throw new Exception("Edit userjobinfo failed");
+
+    }
+
+    //database will automatically generate user id
     [HttpPost("AddUser")]
     public IActionResult AddUser(UserToAddDto user)
     {
@@ -217,6 +273,7 @@ public class UserController : ControllerBase
         throw new Exception("Failed to Add User");
     }
 
+    //have to give userid
     [HttpPost("AddUserSalary")]
     public IActionResult PostUserSalary(UserSalary userSalaryForInsert)
     {
@@ -232,13 +289,40 @@ public class UserController : ControllerBase
             Salary = userSalaryForInsert.Salary
         };
 
-        if (_dapper.ExecuteSqlWithParameters(sql, parameters))
+        if (_dapper.ExecuteSqlWithParameter(sql, parameters))
         {
             //This sends an HTTP 200 OK response with the userSalaryForInsert object as the response body. The client will receive the inserted salary data as part of the response.
             return Ok(userSalaryForInsert);
             //return Ok();
         }
         throw new Exception("Adding User Salary failed on save");
+    }
+
+    //have to give userid
+    [HttpPost("AddUserJobInfo")]
+    public IActionResult PostUserJobInfo(UserJobInfo userJobInfo)
+    {
+        string sql = @"
+            INSERT INTO DotnetAPISchema.UserJobInfo (
+                UserId,
+                JobTitle,
+                Department
+            ) VALUES (@UserId, @JobTitle, @Department)";
+
+        var parameters = new
+        {
+            UserId = userJobInfo.UserId,
+            JobTitle = userJobInfo.JobTitle,
+            Department = userJobInfo.Department
+        };
+
+        if (_dapper.ExecuteSqlWithParameter(sql, parameters))
+        {
+            
+            return Ok(userJobInfo);
+           
+        }
+        throw new Exception("Adding User jobinfo failed on save");
     }
 
 //when we switch to using parameterized queries, you don’t need .ToString() at all, since Dapper takes care of type conversions and safely injects the values into the query.
@@ -273,6 +357,30 @@ public class UserController : ControllerBase
 
         throw new Exception("Failed to Delete UserSalary");
     }
+
+
+    [HttpDelete("DeleteUserJobInfo/{userId}")]
+    public IActionResult DeleteUserJobInfo(int userId)
+    {
+            string sql = @"
+                DELETE FROM DotnetAPISchema.UserJobInfo
+                WHERE UserId = @UserId";
+
+        var parameters = new
+        {
+            UserId = userId,
+        };
+
+        if (_dapper.ExecuteSqlWithParameter(sql, parameters))
+        {
+            
+            return Ok(userId);
+           
+        }
+        throw new Exception("Fail to delete userJobinfo");
+
+    }
+
 
 }
 

@@ -113,6 +113,8 @@
 //                 }
 //             }
 
+
+
 //             // Read user job information data from JSON file
 //             string userJobInfoJson = System.IO.File.ReadAllText("UserJobInfo.json");
 //             IEnumerable<UserJobInfo>? userJobInfo = JsonConvert.DeserializeObject<IEnumerable<UserJobInfo>>(userJobInfoJson);
@@ -146,6 +148,7 @@
 //                     dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
 //                 }
 //             }
+
             
 //             // Indicate that the SQL seeding process is complete
 //             Console.WriteLine("SQL Seed Completed Successfully");
