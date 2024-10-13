@@ -4,6 +4,7 @@ using DotnetAPI.Data;
 using DotnetAPI.Dtos;
 using DotnetAPI.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotnetAPI.Controllers;
 
@@ -23,6 +24,7 @@ public class UserEFController : ControllerBase
         }));
 
     }
+
 
 
     [HttpGet("GetSingeleUser/{userId}")]
