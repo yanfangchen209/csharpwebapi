@@ -245,7 +245,7 @@ public class UserController : ControllerBase
 
     }
 
-    //database will automatically generate user id
+    //database will automatically generate user id, we don't need automapper if we use paramterized query
     [HttpPost("AddUser")]
     public IActionResult AddUser(UserToAddDto user)
     {
@@ -383,4 +383,8 @@ public class UserController : ControllerBase
 
 
 }
+
+
+
+
 

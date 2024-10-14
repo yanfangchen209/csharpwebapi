@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using DotnetAPI.Data;
 using DotnetAPI.Dtos;
@@ -21,6 +20,10 @@ public class UserEFController : ControllerBase
         //map UserToAddDto to User, because entityframework recognize only User
         _mapper = new Mapper(new MapperConfiguration(cfg =>{
             cfg.CreateMap<UserToAddDto, User>();
+            cfg.CreateMap<User, User>().ReverseMap();
+            cfg.CreateMap<UserSalary, UserSalary>().ReverseMap();
+            cfg.CreateMap<UserJobInfo, UserJobInfo>().ReverseMap();
+
         }));
 
     }
@@ -28,7 +31,6 @@ public class UserEFController : ControllerBase
 
 
     [HttpGet("GetSingeleUser/{userId}")]
-    //public IActionResult Test()
     public User GetUsers(int userId)
     {
         User? user = _entityFramework.User!.Where(u => u.UserId == userId).FirstOrDefault<User>();
@@ -51,34 +53,58 @@ public class UserEFController : ControllerBase
         throw new Exception("Fail to find users!");
         
     }
-   
+    
+    //implement editing without automapper
+    // [HttpPut("EditUser")]
+    // public IActionResult EditUser(User user)
+    // {
+    //     User? userDb = _entityFramework.User!
+    //         .Where(u => u.UserId == user.UserId)
+    //         .FirstOrDefault<User>();
+            
+    //     if (userDb != null)
+    //     {
+    //         userDb.Active = user.Active;
+    //         userDb.FirstName = user.FirstName;
+    //         userDb.LastName = user.LastName;
+    //         userDb.Email = user.Email;
+    //         userDb.Gender = user.Gender;
+    //         if (_entityFramework.SaveChanges() > 0)
+    //         {
+    //             return Ok();
+    //         } 
+
+    //         throw new Exception("Failed to Update User");
+    //     }
+        
+    //     throw new Exception("Failed to update User");
+
+    // }
+
+    //use automapper for editing 
     [HttpPut("EditUser")]
     public IActionResult EditUser(User user)
     {
-        User? userDb = _entityFramework.User!
+        User? userToUpdate = _entityFramework.User!
             .Where(u => u.UserId == user.UserId)
-            .FirstOrDefault<User>();
-            
-        if (userDb != null)
+            .FirstOrDefault();
+
+        if (userToUpdate != null)
         {
-            userDb.Active = user.Active;
-            userDb.FirstName = user.FirstName;
-            userDb.LastName = user.LastName;
-            userDb.Email = user.Email;
-            userDb.Gender = user.Gender;
+            _mapper.Map(user, userToUpdate);
             if (_entityFramework.SaveChanges() > 0)
             {
                 return Ok();
-            } 
-
-            throw new Exception("Failed to Update User");
+            }
+            throw new Exception("Updating User failed on save");
         }
-        
+
+    
         throw new Exception("Failed to update User");
 
     }
 
-
+    //without mapping, we have to manually setting each property
     // [HttpPost("AddUser")]
     // public IActionResult AddUser(UserToAddDto user)
     // {
@@ -101,6 +127,7 @@ public class UserEFController : ControllerBase
 
     // }
 
+    //user automapper to map UserToAddDto to User
     [HttpPost("AddUser")]
     public IActionResult AddUser(UserToAddDto user)
     {
@@ -138,10 +165,11 @@ public class UserEFController : ControllerBase
 
     }
 
+     //
      [HttpGet("UserSalary/{userId}")]
     public IEnumerable<UserSalary> GetUserSalaryEF(int userId)
     {
-        return _entityFramework.UserSalary
+        return _entityFramework.UserSalary!
             .Where(u => u.UserId == userId)
             .ToList();
     }
@@ -149,7 +177,7 @@ public class UserEFController : ControllerBase
     [HttpPost("UserSalary")]
     public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     {
-        _entityFramework.UserSalary.Add(userForInsert);
+        _entityFramework.UserSalary!.Add(userForInsert);
         if (_entityFramework.SaveChanges() > 0)
         {
             return Ok();
@@ -161,12 +189,13 @@ public class UserEFController : ControllerBase
     [HttpPut("UserSalary")]
     public IActionResult PutUserSalaryEf(UserSalary userForUpdate)
     {
-        UserSalary? userToUpdate = _entityFramework.UserSalary
+        UserSalary? userToUpdate = _entityFramework.UserSalary!
             .Where(u => u.UserId == userForUpdate.UserId)
             .FirstOrDefault();
 
         if (userToUpdate != null)
         {
+            //use property setting: userToUpdate.salary = userForUpdate.salary;
             _mapper.Map(userForUpdate, userToUpdate);
             if (_entityFramework.SaveChanges() > 0)
             {
@@ -181,13 +210,13 @@ public class UserEFController : ControllerBase
     [HttpDelete("UserSalary/{userId}")]
     public IActionResult DeleteUserSalaryEf(int userId)
     {
-        UserSalary? userToDelete = _entityFramework.UserSalary
+        UserSalary? userToDelete = _entityFramework.UserSalary!
             .Where(u => u.UserId == userId)
             .FirstOrDefault();
 
         if (userToDelete != null)
         {
-            _entityFramework.UserSalary.Remove(userToDelete);
+            _entityFramework.UserSalary!.Remove(userToDelete);
             if (_entityFramework.SaveChanges() > 0)
             {
                 return Ok();
@@ -217,7 +246,14 @@ public class UserEFController : ControllerBase
         throw new Exception("Adding UserJobInfo failed on save");
     }
 
-
+/// <summary>
+/// The mapping configuration cfg.CreateMap<UserJobInfo, UserJobInfo>().ReverseMap() is necessary
+/// to tell AutoMapper how to copy the properties from userForUpdate to userToUpdate. Without it, 
+/// AutoMapper won't know how to handle mapping between two objects of the same type.
+/// </summary>
+/// <param name="userForUpdate"></param>
+/// <returns></returns>
+/// <exception cref="Exception"></exception>
     [HttpPut("UserJobInfo")]
     public IActionResult PutUserJobInfoEf(UserJobInfo userForUpdate)
     {
@@ -259,4 +295,3 @@ public class UserEFController : ControllerBase
     
 
 }
-
