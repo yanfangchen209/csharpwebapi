@@ -185,12 +185,12 @@ public ActionResult<UserJobInfo> GetUserJobInfoEF(int userId)
     /// </summary>
     /// <param name="userId">The unique identifier of the user.</param>
     /// <returns>A list of UserSalary objects related to the specified userId.</returns>
-    [HttpGet("UserSalary/{userId}")]
-    public IEnumerable<UserSalary> GetUserSalaryEF(int userId)
+    [HttpGet("GetSingleUserSalary/{userId}")]
+    public UserSalary GetUserSalaryEF(int userId)
     {
         return _entityFramework.UserSalary!
             .Where(u => u.UserId == userId)
-            .ToList();
+            .FirstOrDefault();
     }
 
     /// <summary>
@@ -198,7 +198,7 @@ public ActionResult<UserJobInfo> GetUserJobInfoEF(int userId)
     /// </summary>
     /// <param name="userForInsert">The UserSalary object containing the salary details to be added.</param>
     /// <returns>Returns OK status if the insertion was successful; otherwise throws an exception.</returns>
-    [HttpPost("UserSalary")]
+    [HttpPost("AddUserSalary")]
     public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     {
         _entityFramework.UserSalary!.Add(userForInsert);
@@ -245,7 +245,7 @@ public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     /// </summary>
     /// <param name="userForUpdate">The UserSalary object containing updated salary details.</param>
     /// <returns>Returns OK status if the update was successful; otherwise throws an exception.</returns>
-    [HttpPut("UserSalary")]
+    [HttpPut("EditUserSalary")]
     public IActionResult PutUserSalaryEf(UserSalary userForUpdate)
     {
         UserSalary? userToUpdate = _entityFramework.UserSalary!
@@ -270,7 +270,7 @@ public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     /// </summary>
     /// <param name="userId">The unique identifier of the user whose salary record is to be deleted.</param>
     /// <returns>Returns OK status if the deletion was successful; otherwise throws an exception.</returns>
-    [HttpDelete("UserSalary/{userId}")]
+    [HttpDelete("DeleteUserSalary/{userId}")]
     public IActionResult DeleteUserSalaryEf(int userId)
     {
         UserSalary? userToDelete = _entityFramework.UserSalary!
@@ -294,12 +294,12 @@ public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     /// </summary>
     /// <param name="userId">The unique identifier of the user.</param>
     /// <returns>A list of UserJobInfo objects related to the specified userId.</returns>
-    [HttpGet("UserJobInfo/{userId}")]
-    public IEnumerable<UserJobInfo> GetUserJobInfoEF(int userId)
+    [HttpGet("GetSingleUserJobInfo/{userId}")]
+    public UserJobInfo GetUserJobInfoEF(int userId)
     {
         return _entityFramework.UserJobInfo
             .Where(u => u.UserId == userId)
-            .ToList();
+            .FirstOrDefault();
     }
 
     /// <summary>
@@ -307,7 +307,7 @@ public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     /// </summary>
     /// <param name="userForInsert">The UserJobInfo object containing job information to be added.</param>
     /// <returns>Returns OK status if the insertion was successful; otherwise throws an exception.</returns>
-    [HttpPost("UserJobInfo")]
+    [HttpPost("AddUserJobInfo")]
     public IActionResult PostUserJobInfoEf(UserJobInfo userForInsert)
     {
         _entityFramework.UserJobInfo.Add(userForInsert);
@@ -327,7 +327,7 @@ public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     /// <param name="userForUpdate">The UserJobInfo object containing updated job information.</param>
     /// <returns>Returns OK status if the update was successful; otherwise throws an exception.</returns>
     /// <exception cref="Exception"></exception>
-    [HttpPut("UserJobInfo")]
+    [HttpPut("EditUserJobInfo")]
     public IActionResult PutUserJobInfoEf(UserJobInfo userForUpdate)
     {
         UserJobInfo? userToUpdate = _entityFramework.UserJobInfo
@@ -351,7 +351,7 @@ public IActionResult PostUserSalaryEf(UserSalary userForInsert)
     /// </summary>
     /// <param name="userId">The unique identifier of the user whose job info record is to be deleted.</param>
     /// <returns>Returns OK status if the deletion was successful; otherwise throws an exception.</returns>
-    [HttpDelete("UserJobInfo/{userId}")]
+    [HttpDelete("DeleteUserJobInfo/{userId}")]
     public IActionResult DeleteUserJobInfoEf(int userId)
     {
         UserJobInfo? userToDelete = _entityFramework.UserJobInfo

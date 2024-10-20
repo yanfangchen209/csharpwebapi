@@ -67,18 +67,18 @@ namespace DotnetAPI.Data
         /// <param name="modelBuilder">The model builder to configure entity mappings.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("TutorialAppSchema");
+            modelBuilder.HasDefaultSchema("DotnetAPISchema");
 
             modelBuilder.Entity<User>()
-                .ToTable("Users", "TutorialAppSchema")
+                .ToTable("Users", "DotnetAPISchema")
                 .HasKey(u => u.UserId);
 
             modelBuilder.Entity<UserSalary>()
-                .ToTable("UserSalaries", "TutorialAppSchema") // Add table and schema mapping
+                .ToTable("UserSalary", "DotnetAPISchema") // Add table and schema mapping
                 .HasKey(u => u.UserId);
 
             modelBuilder.Entity<UserJobInfo>()
-                .ToTable("UserJobInfos", "TutorialAppSchema") // Add table and schema mapping
+                .ToTable("UserJobInfo", "DotnetAPISchema") // Add table and schema mapping
                 .HasKey(u => u.UserId);
         }
 
