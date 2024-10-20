@@ -61,25 +61,26 @@ namespace DotnetAPI.Data
 
         /// <summary>
         /// Defines the model creation, setting schema and primary keys for each entity.
+        /// OnModelCreating method defines the schema and table mappings, and it sets up the primary keys 
+        /// for three entities: User, UserSalary, and UserJobInfo
         /// </summary>
         /// <param name="modelBuilder">The model builder to configure entity mappings.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Set default schema for the tables
-            modelBuilder.HasDefaultSchema("DotnetAPISchema");
+            modelBuilder.HasDefaultSchema("TutorialAppSchema");
 
-            // Configure the Users table with its schema and primary key
             modelBuilder.Entity<User>()
-                .ToTable("Users", "DotnetAPISchema")
+                .ToTable("Users", "TutorialAppSchema")
                 .HasKey(u => u.UserId);
 
-            // Configure UserSalary table with primary key
             modelBuilder.Entity<UserSalary>()
+                .ToTable("UserSalaries", "TutorialAppSchema") // Add table and schema mapping
                 .HasKey(u => u.UserId);
 
-            // Configure UserJobInfo table with primary key
             modelBuilder.Entity<UserJobInfo>()
+                .ToTable("UserJobInfos", "TutorialAppSchema") // Add table and schema mapping
                 .HasKey(u => u.UserId);
         }
+
     }
 }

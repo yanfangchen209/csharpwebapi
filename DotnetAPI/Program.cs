@@ -1,5 +1,7 @@
 // Create a WebApplicationBuilder that provides the necessary services and configuration for the application.
+using DotnetAPI.Data;
 using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,9 @@ builder.Services.AddCors((options) =>
     } );
 });
 
+//This registers UserRepository as the implementation for IUserRepository, and when the UserEFController 
+//is instantiated(a new instance is created when there is a request.), the IUserRepository parameter is injected automatically by the dependency injection (DI) system.
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Build the application with the configured services.
 var app = builder.Build();

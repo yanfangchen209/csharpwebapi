@@ -50,6 +50,7 @@ public class UserEFController : ControllerBase
         throw new Exception("Fail to find user!");
     }
 
+
     // Get all users from the database
     /// <summary>
     /// Retrieves a list of all users.
@@ -65,6 +66,23 @@ public class UserEFController : ControllerBase
         }
         throw new Exception("Fail to find users!");
     }
+
+    
+    /*
+    [HttpGet("UserJobInfo/{userId}")]
+public ActionResult<UserJobInfo> GetUserJobInfoEF(int userId)
+{
+    var userJobInfo = _entityFramework.UserJobInfo
+        .FirstOrDefault(u => u.UserId == userId);
+
+    if (userJobInfo == null)
+    {
+        return NotFound();
+    }
+
+    return Ok(userJobInfo);
+}
+    */
 
 
     /// <summary>
@@ -162,7 +180,7 @@ public class UserEFController : ControllerBase
 
 
 
-       /// <summary>
+    /// <summary>
     /// Retrieves the salary details for a specific user based on userId.
     /// </summary>
     /// <param name="userId">The unique identifier of the user.</param>
@@ -190,6 +208,36 @@ public class UserEFController : ControllerBase
         }
         throw new Exception("Adding UserSalary failed on save");
     }
+
+/**proper null check other than !
+[HttpPost("UserSalary")]
+public IActionResult PostUserSalaryEf(UserSalary userForInsert)
+{
+    if (userForInsert == null)
+    {
+        return BadRequest("User salary data cannot be null.");
+    }
+
+    if (_entityFramework?.UserSalary == null)
+    {
+        return StatusCode(StatusCodes.Status500InternalServerError, "Database context is not initialized.");
+    }
+
+    _entityFramework.UserSalary.Add(userForInsert);
+
+    if (_entityFramework.SaveChanges() > 0)
+    {
+        return Ok();
+    }
+
+    throw new Exception("Adding UserSalary failed on save.");
+}
+
+*/
+
+
+
+
 
     /// <summary>
     /// Updates an existing UserSalary record based on the userId.

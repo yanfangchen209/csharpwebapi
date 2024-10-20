@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VNAWMZ1tFsA=",
+  "dgSpecHash": "1H6ZL7O+ol0=",
   "success": true,
-  "projectFilePath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj",
+  "projectFilePath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\julie\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\julie\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj": {}
+    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj": {}
   },
   "projects": {
-    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj": {
+    "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj",
+        "projectUniqueName": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj",
         "projectName": "DotnetAPI",
-        "projectPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\DotnetAPI.csproj",
+        "projectPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\DotnetAPI.csproj",
         "packagesPath": "C:\\Users\\julie\\.nuget\\packages\\",
-        "outputPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\dotnetapi\\obj\\",
+        "outputPath": "C:\\juliestudy\\yanfangchen042224githubrepo\\csharpwebapi\\DotnetAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\julie\\AppData\\Roaming\\NuGet\\NuGet.Config"
