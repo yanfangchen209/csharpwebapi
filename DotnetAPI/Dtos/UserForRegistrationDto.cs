@@ -1,20 +1,39 @@
 namespace DotnetAPI.Dtos
 {
-    class UserForRegistrationDto
+    public class UserForRegistrationDto
     {
-        string Email {get; set;}
-        string Password {get; set;}
-        string PasswordConfirm {get; set;}
+        public string Email {get; set;}
+        public string Password {get; set;}
+        public string PasswordConfirm {get; set;}
+        public string FirstName {get; set;}
+        public string LastName {get; set;}
+        public string Gender {get; set;}
 
-        public UserForRegistrationDto() {
-            if (Email == null) {
+        public UserForRegistrationDto()
+        {
+            if (Email == null)
+            {
                 Email = "";
             }
-            if (Password == null) {
+            if (Password == null)
+            {
                 Password = "";
             }
-            if (PasswordConfirm == null) {
+            if (PasswordConfirm == null)
+            {
                 PasswordConfirm = "";
+            }
+            if (FirstName == null)
+            {
+                FirstName = "";
+            }
+            if (LastName == null)
+            {
+                LastName = "";
+            }
+            if (Gender == null)
+            {
+                Gender = "";
             }
         }
     }

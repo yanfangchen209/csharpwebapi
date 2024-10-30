@@ -54,6 +54,7 @@ namespace DotnetAPI.Data
             {
                 // Configures the context to use SQL Server with the specified connection string.
                 // The '!' operator suppresses the null warning for the connection string.
+                //GetConnectionString() retrieves a connection string from a predefined ConnectionStrings section.
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection")!, 
                     options => options.EnableRetryOnFailure());
             }
