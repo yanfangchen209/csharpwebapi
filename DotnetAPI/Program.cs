@@ -1,6 +1,9 @@
 // Create a WebApplicationBuilder that provides the necessary services and configuration for the application.
+using System.Text;
 using DotnetAPI.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +42,27 @@ builder.Services.AddCors((options) =>
 //is instantiated(a new instance is created when there is a request.), the IUserRepository parameter is injected automatically by the dependency injection (DI) system.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+/*JWT configuration: Retrieves the TokenKey from configuration settings and sets it as the signing key, use 
+TokenValidationParameters to validate that the token was signed with the provided TokenKey
+This configuration simply ensures that any token presented in the Authorization header is 
+signed with the correct TokenKey. (It does not inherently make use of a UserId or any user-specific claim.)*/
+string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters() 
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    tokenKeyString != null ? tokenKeyString : ""
+                )),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        }
+        );
+
+
+
 // Build the application with the configured services.
 var app = builder.Build();
 
@@ -58,6 +82,14 @@ else
     // In production, use HTTPS redirection to ensure secure communication.
     app.UseHttpsRedirection();
 }
+
+//order is important, otherwise resulting "401unauthorized"
+/*calling app.UseAuthentication() first ensures that the request’s token is validated and the 
+user's identity is established. Then, app.UseAuthorization() can properly assess the user's 
+permissions based on their claims.*/
+app.UseAuthentication(); // Checks and validates the JWT token in the request to authenticate the user.
+app.UseAuthorization();  // Enforces authorization policies, assuming the user is authenticated.
+
 
 // Map controller routes to handle HTTP requests.
 app.MapControllers();

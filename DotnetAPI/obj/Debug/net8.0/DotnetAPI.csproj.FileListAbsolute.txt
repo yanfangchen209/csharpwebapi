@@ -86,3 +86,4 @@ C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\juliestudy\yanfangchen042224githubrepo\csharpwebapi\dotnetapi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
