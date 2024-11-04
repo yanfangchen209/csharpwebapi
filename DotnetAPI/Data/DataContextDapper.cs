@@ -57,6 +57,10 @@ namespace DotnetAPI.Data {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             return dbConnection.QuerySingle<T>(sql, parameter);
         }
+        public IEnumerable<T> LoadDataWithParameter<T>(string sql, object parameter) {
+            IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            return dbConnection.Query<T>(sql, parameter);
+        }
 
         public bool ExecuteSqlWithParameter(string sql, object parameter) {
             IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
